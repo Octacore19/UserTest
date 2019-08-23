@@ -18,15 +18,142 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <ImageView
+        android:id="@+id/profile_photo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/following_count_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="72dp"
+        android:fontFamily="monospace"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/followers_count_textView"
+        app:layout_constraintTop_toTopOf="@+id/followers_count_textView"
+        tools:text="@string/initial_count" />
+
+    <TextView
+        android:id="@+id/followers_count_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="monospace"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/profile_photo"
+        app:layout_constraintStart_toStartOf="@+id/profile_photo"
+        app:layout_constraintTop_toBottomOf="@+id/profile_photo"
+        tools:text="@string/initial_count" />
+
+    <TextView
+        android:id="@+id/likes_count_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:fontFamily="monospace"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/followers_count_textView"
+        app:layout_constraintTop_toTopOf="@+id/followers_count_textView"
+        tools:text="@string/initial_count" />
+
+    <TextView
+        android:id="@+id/followers_label_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/followers_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/followers_count_textView"
+        app:layout_constraintStart_toStartOf="@+id/followers_count_textView"
+        app:layout_constraintTop_toTopOf="@+id/following_label_textView" />
+
+    <TextView
+        android:id="@+id/following_label_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/following_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/following_count_textView"
+        app:layout_constraintStart_toStartOf="@+id/following_count_textView"
+        app:layout_constraintTop_toBottomOf="@+id/following_count_textView" />
+
+    <TextView
+        android:id="@+id/likes_label_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/post_likes_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/likes_count_textView"
+        app:layout_constraintStart_toStartOf="@+id/likes_count_textView"
+        app:layout_constraintTop_toTopOf="@+id/followers_label_textView" />
+
+    <TextView
+        android:id="@+id/user_fullname_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="monospace"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/followers_label_textView"
+        tools:text="@string/default_name" />
+
+    <TextView
+        android:id="@+id/verified_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/verified_text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_fullname_textView" />
+
+    <Button
+        android:id="@+id/edit_profile_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/edit_profile_text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verified_textView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/postsRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <include layout="@layout/content_profile"/>
-
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_textView"
+        tools:listitem="@layout/images_list_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

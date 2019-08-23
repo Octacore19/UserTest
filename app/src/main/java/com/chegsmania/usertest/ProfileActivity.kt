@@ -9,22 +9,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chegsmania.usertest.model.Model
+import com.chegsmania.usertest.utils.GridItemDecoration
 import com.chegsmania.usertest.utils.UsApiService
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PostsAdapter
-    private lateinit var followingCount: TextView
-    private lateinit var followerCount: TextView
-    private lateinit var likesCount: TextView
-    private lateinit var fullname: TextView
-    private lateinit var image: ImageView
     var posts = ArrayList<Model.PostObject>()
 
     private val api by lazy{
@@ -37,15 +32,9 @@ class ProfileActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        followingCount = findViewById(R.id.following_count_textView)
-        followerCount = findViewById(R.id.followers_count_textView)
-        likesCount = findViewById(R.id.likes_count_textView)
-        fullname = findViewById(R.id.user_fullname_textView)
-        image = findViewById(R.id.profile_photo)
-
-        recyclerView = findViewById(R.id.postsRecycler)
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
-        adapter = PostsAdapter(this, posts)
+        postsRecycler.adapter = PostsAdapter(posts)
+        postsRecycler.layoutManager = GridLayoutManager(this, 3)
+        postsRecycler.addItemDecoration(GridItemDecoration(8, 3))
         getUser()
     }
 
@@ -59,8 +48,8 @@ class ProfileActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Model.User>, response: Response<Model.User>) {
                 val user: Model.User = response.body()!!
                 displayUserProfile(user)
-                adapter.notifyDataSetChanged()
-                posts = user.posts
+                posts.addAll(user.posts)
+                postsRecycler.adapter!!.notifyDataSetChanged()
             }
 
         })
@@ -68,14 +57,15 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun displayUserProfile(user: Model.User){
         val details = user.details
-        fullname.text = details.fullname
-        followingCount.text = details.following_count.toString()
-        followerCount.text = details.follower_count.toString()
-        likesCount.text = details.post_like_count.toString()
+        user_fullname_textView.text = details.fullname
+        following_count_textView.text = details.following_count.toString()
+        followers_count_textView.text = details.follower_count.toString()
+        likes_count_textView.text = details.post_like_count.toString()
+
         val imageUrl: String = details.avatar
         Picasso.get()
             .load(imageUrl)
-            .into(image)
+            .into(profile_photo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

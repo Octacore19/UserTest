@@ -17,7 +17,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/account_text">
+    <PreferenceCategory
+        android:title="@string/account_text"
+        app:iconSpaceReserved="false">
 
         <Preference
             app:fragment="com.chegsmania.usertest.SettingsActivity$PasswordFragment"
@@ -30,7 +32,9 @@
             app:key="messages_header"
             app:title="@string/upgrade_premium_header" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/about_text">
+    <PreferenceCategory
+        android:title="@string/about_text"
+        app:iconSpaceReserved="false">
 
         <Preference
             app:fragment="com.chegsmania.usertest.SettingsActivity$TermsFragment"
@@ -45,7 +49,7 @@
             app:title="@string/licenses_header" />
     </PreferenceCategory>
 
-    <PreferenceCategory>
+    <PreferenceCategory app:iconSpaceReserved="false">
 
         <Preference
             app:fragment="com.chegsmania.usertest.SettingsActivity$LogoutFragment"
