@@ -6,15 +6,22 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
-import kotlinx.android.synthetic.main.activity_profile.*
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ProfileActivity : AppCompatActivity() {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PostsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        recyclerView = findViewById(R.id.posts_recycler)
+        adapter = PostsAdapter(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

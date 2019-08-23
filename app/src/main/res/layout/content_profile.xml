@@ -110,6 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/verified_textView" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/posts_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -119,6 +120,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_textView"
+        tools:listitem="@layout/images_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
