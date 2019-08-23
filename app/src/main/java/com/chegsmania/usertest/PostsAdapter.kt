@@ -4,23 +4,28 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.images_list_item.view.*
+import com.chegsmania.usertest.model.Model
+import com.squareup.picasso.Picasso
 
-class PostsAdapter (val context: Context): RecyclerView.Adapter<PostsAdapter.PostsViewHolder>() {
+class PostsAdapter (private val context: Context, private val postList: List<Model.PostObject>): RecyclerView.Adapter<PostsAdapter.PostsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
         return PostsViewHolder(LayoutInflater.from(context).inflate(R.layout.images_list_item, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return 0
+        return postList.size
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
-
+        val imageUrl: String = postList[position].media_url
+        Picasso.get()
+            .load(imageUrl)
+            .into(holder.postImageView)
     }
 
     class PostsViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val postImage = view.post_images
+        val postImageView: ImageView = view.findViewById(R.id.post_images)
     }
 }
