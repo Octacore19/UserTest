@@ -10,6 +10,7 @@ import androidx.preference.PreferenceFragmentCompat
 private const val TITLE_TAG = "settingsActivityTitle"
 
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+    var toolbarTitle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                 .replace(R.id.settings, HeaderFragment())
                 .commit()
         } else {
-            title = savedInstanceState.getCharSequence(TITLE_TAG)
+            toolbarTitle = savedInstanceState.getCharSequence(TITLE_TAG)?.toString()
         }
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
@@ -39,7 +40,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Save current activity title so we can set it again after a configuration change
-        outState.putCharSequence(TITLE_TAG, title)
+        outState.putCharSequence(TITLE_TAG, toolbarTitle)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -61,7 +62,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             .replace(R.id.settings, fragment)
             .addToBackStack(null)
             .commit()
-        title = pref.title
+        toolbarTitle = pref.title.toString()
         return true
     }
 

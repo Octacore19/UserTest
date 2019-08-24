@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chegsmania.usertest.model.Model
 import com.chegsmania.usertest.utils.GridItemDecoration
-import com.chegsmania.usertest.utils.UsApiService
+import com.chegsmania.usertest.database.remote.UsApiService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
 import retrofit2.Call
