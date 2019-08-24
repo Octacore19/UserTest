@@ -1,6 +1,7 @@
 package com.chegsmania.usertest
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.Preference
@@ -8,14 +9,16 @@ import androidx.preference.PreferenceFragmentCompat
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
-class SettingsActivity : AppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        val mToolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbarTitleTextView: TextView = mToolbar.findViewById(R.id.toolbar_title)
+        toolbarTitleTextView.text = getString(R.string.title_activity_settings)
+        mToolbar.navigationIcon = getDrawable(R.drawable.ic_arrow_back_black_24dp)
+        setSupportActionBar(mToolbar)
 
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -27,10 +30,9 @@ class SettingsActivity : AppCompatActivity(),
         }
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
-                setTitle(R.string.title_activity_settings)
+                toolbarTitleTextView.text = getString(R.string.title_activity_settings)
             }
         }
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -47,16 +49,10 @@ class SettingsActivity : AppCompatActivity(),
         return super.onSupportNavigateUp()
     }
 
-    override fun onPreferenceStartFragment(
-        caller: PreferenceFragmentCompat,
-        pref: Preference
-    ): Boolean {
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-            classLoader,
-            pref.fragment
-        ).apply {
+        val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
             arguments = args
             setTargetFragment(caller, 0)
         }
